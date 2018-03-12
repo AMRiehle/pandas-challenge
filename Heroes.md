@@ -20,23 +20,6 @@ num_players = df['SN'].nunique()
 pd.DataFrame({"Total Players":[num_players]})
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -51,8 +34,6 @@ pd.DataFrame({"Total Players":[num_players]})
     </tr>
   </tbody>
 </table>
-</div>
-
 
 
 ### Purchasing Analysis (Total)
@@ -71,23 +52,6 @@ tot_purchases_df['Total Revenue'] = tot_purchases_df['Total Revenue'].map("${:,.
 tot_purchases_df
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -108,8 +72,6 @@ tot_purchases_df
     </tr>
   </tbody>
 </table>
-</div>
-
 
 
 ### Gender Demographics
@@ -126,23 +88,6 @@ sn_unique_gender_demo_df['Percent of Players'] = sn_unique_gender_demo_df['Perce
 sn_unique_gender_demo_df.sort_values('Percent of Players', ascending=False)
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -174,9 +119,6 @@ sn_unique_gender_demo_df.sort_values('Percent of Players', ascending=False)
     </tr>
   </tbody>
 </table>
-</div>
-
-
 
 ### Purchasing Analysis (Gender)
 
@@ -194,23 +136,6 @@ gender_purchase_df['Normalized Totals'] = gender_purchase_df['Normalized Totals'
 gender_purchase_df
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -252,8 +177,6 @@ gender_purchase_df
     </tr>
   </tbody>
 </table>
-</div>
-
 
 
 ### Age Demographics
@@ -274,23 +197,6 @@ sn_unique_age_demo_df['Percent of Players'] = sn_unique_age_demo_df['Percent of 
 sn_unique_age_demo_df
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -352,8 +258,6 @@ sn_unique_age_demo_df
     </tr>
   </tbody>
 </table>
-</div>
-
 
 
 ### Purchasing Analysis (Age)
@@ -371,23 +275,6 @@ age_purchase_df['Normalized Totals'] = age_purchase_df['Normalized Totals'].map(
 age_purchase_df
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -471,9 +358,6 @@ age_purchase_df
     </tr>
   </tbody>
 </table>
-</div>
-
-
 
 ### Top Spenders
 
@@ -489,23 +373,6 @@ top_spenders_df['Total Purchase Value'] = top_spenders_df['Total Purchase Value'
 top_spenders_df
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -554,9 +421,6 @@ top_spenders_df
     </tr>
   </tbody>
 </table>
-</div>
-
-
 
 ### Most Popular Items
 
@@ -572,23 +436,6 @@ pop_items_df['Total Purchase Value'] = pop_items_df['Total Purchase Value'].map(
 pop_items_df
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -644,9 +491,6 @@ pop_items_df
     </tr>
   </tbody>
 </table>
-</div>
-
-
 
 ### Most Profitable Items
 
@@ -662,23 +506,6 @@ rev_items_df['Total Purchase Value'] = rev_items_df['Total Purchase Value'].map(
 rev_items_df
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -734,6 +561,3 @@ rev_items_df
     </tr>
   </tbody>
 </table>
-</div>
-
-
