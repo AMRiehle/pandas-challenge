@@ -561,3 +561,11 @@ rev_items_df
     </tr>
   </tbody>
 </table>
+
+### Observable Trends
+
+* Males make up a significantly larger portion of the player base (or at least the player base who makes purchases) than women and also tend to spend more than women, all else being equal.
+
+* Between ages 10-34, the older a player is, the more money s/he is likely to spend, all else being equal.
+
+* Higher-priced items tend to be more profitable even if they aren't more frequently purchased. The price difference often compensates for any differences in purchase frequency.
