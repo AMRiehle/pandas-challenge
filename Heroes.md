@@ -35,7 +35,6 @@ pd.DataFrame({"Total Players":[num_players]})
   </tbody>
 </table>
 
-
 ### Purchasing Analysis (Total)
 
 
@@ -72,7 +71,6 @@ tot_purchases_df
     </tr>
   </tbody>
 </table>
-
 
 ### Gender Demographics
 
@@ -126,7 +124,7 @@ sn_unique_gender_demo_df.sort_values('Percent of Players', ascending=False)
 ```python
 grouped_gender_df = df.groupby(['Gender'])
 gender_purchase_df = grouped_gender_df.agg({'Gender':['count'], 'Price':['mean', 'sum']})
-norm_gender_tots = grouped_gender_df['Price'].sum() / (grouped_gender_df['Gender'].count() / grouped_gender_df['Gender'].count().sum())
+norm_gender_tots = grouped_gender_df['Price'].sum() / (sn_unique_gender_df['Gender'].count())
 gender_purchase_df['Normalized Totals'] = norm_gender_tots
 gender_purchase_df.columns = gender_purchase_df.columns.droplevel()
 gender_purchase_df = gender_purchase_df.rename(columns={"count":"Purchase Count", "mean":"Average Purchase Price", "sum":"Total Purchase Value", "":"Normalized Totals"})
@@ -159,25 +157,24 @@ gender_purchase_df
       <td>136</td>
       <td>$2.82</td>
       <td>$382.91</td>
-      <td>$2,196.10</td>
+      <td>$3.83</td>
     </tr>
     <tr>
       <th>Male</th>
       <td>633</td>
       <td>$2.95</td>
       <td>$1,867.68</td>
-      <td>$2,301.41</td>
+      <td>$4.02</td>
     </tr>
     <tr>
       <th>Other / Non-Disclosed</th>
       <td>11</td>
       <td>$3.25</td>
       <td>$35.74</td>
-      <td>$2,534.29</td>
+      <td>$4.47</td>
     </tr>
   </tbody>
 </table>
-
 
 ### Age Demographics
 
@@ -259,14 +256,13 @@ sn_unique_age_demo_df
   </tbody>
 </table>
 
-
 ### Purchasing Analysis (Age)
 
 
 ```python
 grouped_age_df = df.groupby(['Age Bracket'])
 age_purchase_df = df.groupby(['Age Bracket']).agg({'Age':['count'], 'Price':['mean', 'sum']})
-age_purchase_df['Normalized Totals'] = grouped_age_df['Price'].sum() / (grouped_age_df['Age'].count() / grouped_age_df['Age'].count().sum())
+age_purchase_df['Normalized Totals'] = grouped_age_df['Price'].sum() / sn_unique_age_df['Age'].count()
 age_purchase_df.columns = age_purchase_df.columns.droplevel()
 age_purchase_df = age_purchase_df.rename(columns={"count":"Purchase Count", "mean":"Average Purchase Price", "sum":"Total Purchase Value", "":"Normalized Totals"})
 age_purchase_df['Average Purchase Price'] = age_purchase_df['Average Purchase Price'].map("${:.2f}".format)
@@ -298,63 +294,63 @@ age_purchase_df
       <td>28</td>
       <td>$2.98</td>
       <td>$83.46</td>
-      <td>$2,324.96</td>
+      <td>$4.39</td>
     </tr>
     <tr>
       <th>10-14</th>
       <td>35</td>
       <td>$2.77</td>
       <td>$96.95</td>
-      <td>$2,160.60</td>
+      <td>$4.22</td>
     </tr>
     <tr>
       <th>15-19</th>
       <td>133</td>
       <td>$2.91</td>
       <td>$386.42</td>
-      <td>$2,266.22</td>
+      <td>$3.86</td>
     </tr>
     <tr>
       <th>20-24</th>
       <td>336</td>
       <td>$2.91</td>
       <td>$978.77</td>
-      <td>$2,272.14</td>
+      <td>$3.78</td>
     </tr>
     <tr>
       <th>25-29</th>
       <td>125</td>
       <td>$2.96</td>
       <td>$370.33</td>
-      <td>$2,310.86</td>
+      <td>$4.26</td>
     </tr>
     <tr>
       <th>30-34</th>
       <td>64</td>
       <td>$3.08</td>
       <td>$197.25</td>
-      <td>$2,403.98</td>
+      <td>$4.20</td>
     </tr>
     <tr>
       <th>35-39</th>
       <td>42</td>
       <td>$2.84</td>
       <td>$119.40</td>
-      <td>$2,217.43</td>
+      <td>$4.42</td>
     </tr>
     <tr>
       <th>40-44</th>
       <td>16</td>
       <td>$3.19</td>
       <td>$51.03</td>
-      <td>$2,487.71</td>
+      <td>$5.10</td>
     </tr>
     <tr>
       <th>45-49</th>
       <td>1</td>
       <td>$2.72</td>
       <td>$2.72</td>
-      <td>$2,121.60</td>
+      <td>$2.72</td>
     </tr>
   </tbody>
 </table>
@@ -564,8 +560,8 @@ rev_items_df
 
 ### Observable Trends
 
-* Males make up a significantly larger portion of the player base (or at least the player base who makes purchases) than women and also tend to spend more than women, all else being equal.
+* Males make up a significantly larger portion of the player base (or at least the player base who makes purchases) than women and also tend to spend more than women.
 
-* Between ages 10-34, the older a player is, the more money s/he is likely to spend, all else being equal.
+* The majority of players are between the ages of 20-24, but the typical 20-24 year old pays less than players in other age brackets - both older and younger.
 
 * Higher-priced items tend to be more profitable even if they aren't more frequently purchased. The price difference often compensates for any differences in purchase frequency.
