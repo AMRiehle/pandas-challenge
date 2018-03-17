@@ -11,9 +11,14 @@ GWU Data Analytics Bootcamp Homework 4
 
 * Higher-priced items tend to be more profitable even if they aren't more frequently purchased. The price difference often compensates for any differences in purchase frequency.
 
+
 ```python
+# Load dependencies
+
 import pandas as pd
 import numpy as np
+
+# Read in data and create initial dataframe
 
 json = "../Resources/Heroes.JSON"
 df = pd.read_json(json)
@@ -23,6 +28,8 @@ df = pd.read_json(json)
 
 
 ```python
+# Calculate number of unique players/individuals
+
 num_players = df['SN'].nunique()
 pd.DataFrame({"Total Players":[num_players]})
 ```
@@ -46,15 +53,25 @@ pd.DataFrame({"Total Players":[num_players]})
 
 
 ```python
+# Calculate summary statistics for data
+
 unique_items_count = df['Item ID'].nunique()
 avg_purchase_price = df['Price'].mean()
 total_purchases = df['Price'].count()
 total_revenue = df['Price'].sum()
 
+# Create and format dataframe
+
 tot_purchases_df = pd.DataFrame({"Number of Unique Items":[unique_items_count], "Average Price":[avg_purchase_price], "Number of Purchases":[total_purchases], "Total Revenue":[total_revenue]})
 tot_purchases_df = tot_purchases_df.reindex(['Number of Unique Items','Average Price','Number of Purchases','Total Revenue'], axis=1)
+
+# Format data
+
 tot_purchases_df['Average Price'] = tot_purchases_df['Average Price'].map("${:.2f}".format)
 tot_purchases_df['Total Revenue'] = tot_purchases_df['Total Revenue'].map("${:,.2f}".format)
+
+# Print data
+
 tot_purchases_df
 ```
 
@@ -83,13 +100,30 @@ tot_purchases_df
 
 
 ```python
+# Isolate unique individuals
+
 sn_unique_df = df.drop_duplicates(subset="SN")
+
+# Group data by gender
+
 sn_unique_gender_df = sn_unique_df.groupby(['Gender'])
+
+# Calculate count and percent of unique individuals by gender
+
 sn_unique_grouped_gender_count = sn_unique_gender_df[['Gender']].count()
 sn_unique_grouped_gender_percent = (sn_unique_gender_df[['Gender']].count() / sn_unique_gender_df[['Gender']].count().sum()) * 100
+
+# Combine count and percent dataframes
+
 sn_unique_gender_demo_df = pd.merge(sn_unique_grouped_gender_percent, sn_unique_grouped_gender_count, left_index=True, right_index=True, how='outer')
 sn_unique_gender_demo_df = sn_unique_gender_demo_df.rename(columns={"Gender_x":"Percent of Players", "Gender_y":"Total Count"})
+
+# Format data
+
 sn_unique_gender_demo_df['Percent of Players'] = sn_unique_gender_demo_df['Percent of Players'].map("{:.2f}%".format)
+
+# Sort data by descending gender frequency
+
 sn_unique_gender_demo_df.sort_values('Percent of Players', ascending=False)
 ```
 
@@ -129,15 +163,29 @@ sn_unique_gender_demo_df.sort_values('Percent of Players', ascending=False)
 
 
 ```python
+# Group dataframe and perform initial aggregation
+
 grouped_gender_df = df.groupby(['Gender'])
 gender_purchase_df = grouped_gender_df.agg({'Gender':['count'], 'Price':['mean', 'sum']})
+
+# Calculate normalized totals (total purchases / unique individuals)
+
 norm_gender_tots = grouped_gender_df['Price'].sum() / (sn_unique_gender_df['Gender'].count())
 gender_purchase_df['Normalized Totals'] = norm_gender_tots
+
+# Format dataframe and rename columns
+
 gender_purchase_df.columns = gender_purchase_df.columns.droplevel()
 gender_purchase_df = gender_purchase_df.rename(columns={"count":"Purchase Count", "mean":"Average Purchase Price", "sum":"Total Purchase Value", "":"Normalized Totals"})
+
+# Format data
+
 gender_purchase_df['Average Purchase Price'] = gender_purchase_df['Average Purchase Price'].map("${:.2f}".format)
 gender_purchase_df['Total Purchase Value'] = gender_purchase_df['Total Purchase Value'].map("${:,.2f}".format)
 gender_purchase_df['Normalized Totals'] = gender_purchase_df['Normalized Totals'].map("${:,.2f}".format)
+
+# Print data
+
 gender_purchase_df
 ```
 
@@ -187,17 +235,33 @@ gender_purchase_df
 
 
 ```python
+# Create and assign age brackets
+
 bins = [0, 9, 14, 19, 24, 29, 34, 39, 44, 49]
 group_names = ['Under 10', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39', '40-44', '45-49']
 df['Age Bracket'] = pd.cut(df["Age"], bins, labels=group_names)
 
+# Isolate unique players 
+
 sn_unique_df = df.drop_duplicates(subset="SN")
+
+# Calculate count and percent of unique players in dataframe
+
 sn_unique_age_df = sn_unique_df.groupby(['Age Bracket'])
 sn_unique_grouped_age_count = sn_unique_age_df[['Age']].count()
 sn_unique_grouped_age_percent = (sn_unique_age_df[['Age']].count() / sn_unique_age_df[['Age']].count().sum()) * 100
+
+# Combine count and percent dataframes
+
 sn_unique_age_demo_df = pd.merge(sn_unique_grouped_age_percent, sn_unique_grouped_age_count, left_index=True, right_index=True, how='outer')
+
+# Rename dataframe columns and format data
+
 sn_unique_age_demo_df = sn_unique_age_demo_df.rename(columns={"Age_x":"Percent of Players", "Age_y":"Total Count"})
 sn_unique_age_demo_df['Percent of Players'] = sn_unique_age_demo_df['Percent of Players'].map("{:.2f}%".format)
+
+# Print data
+
 sn_unique_age_demo_df
 ```
 
@@ -267,14 +331,28 @@ sn_unique_age_demo_df
 
 
 ```python
+# Group and aggregate data
+
 grouped_age_df = df.groupby(['Age Bracket'])
 age_purchase_df = df.groupby(['Age Bracket']).agg({'Age':['count'], 'Price':['mean', 'sum']})
+
+# Calculate normalized totals (total purchases / unique individuals)
+
 age_purchase_df['Normalized Totals'] = grouped_age_df['Price'].sum() / sn_unique_age_df['Age'].count()
+
+# Format dataframe
+
 age_purchase_df.columns = age_purchase_df.columns.droplevel()
 age_purchase_df = age_purchase_df.rename(columns={"count":"Purchase Count", "mean":"Average Purchase Price", "sum":"Total Purchase Value", "":"Normalized Totals"})
+
+# Format data
+
 age_purchase_df['Average Purchase Price'] = age_purchase_df['Average Purchase Price'].map("${:.2f}".format)
 age_purchase_df['Total Purchase Value'] = age_purchase_df['Total Purchase Value'].map("${:,.2f}".format)
 age_purchase_df['Normalized Totals'] = age_purchase_df['Normalized Totals'].map("${:,.2f}".format)
+
+# Print data
+
 age_purchase_df
 ```
 
@@ -366,13 +444,24 @@ age_purchase_df
 
 
 ```python
+# Aggregate data and format dataframe
+
 top_spenders_df = df.groupby(['SN']).agg({'Price':['count', 'mean', 'sum']})
 top_spenders_df.columns = top_spenders_df.columns.droplevel()
 top_spenders_df = top_spenders_df.rename(columns={"count":"Purchase Count", "mean":"Average Purchase Price", "sum":"Total Purchase Value"})
+
+# Sort data and grab first 5 rows
+
 top_spenders_df = top_spenders_df.sort_values('Total Purchase Value', ascending=False)
 top_spenders_df = top_spenders_df.head()
+
+# Format data
+
 top_spenders_df['Average Purchase Price'] = top_spenders_df['Average Purchase Price'].map("${:,.2f}".format)
 top_spenders_df['Total Purchase Value'] = top_spenders_df['Total Purchase Value'].map("${:,.2f}".format)
+
+# Print data
+
 top_spenders_df
 ```
 
@@ -429,13 +518,24 @@ top_spenders_df
 
 
 ```python
+# Aggregate data and format dataframe
+
 grouped_items_df = df.groupby(['Item ID', 'Item Name']).agg({'Price':['count', 'mean', 'sum']})
 grouped_items_df.columns = grouped_items_df.columns.droplevel()
 grouped_items_df = grouped_items_df.rename(columns={"count":"Purchase Count", "mean":"Average Purchase Price", "sum":"Total Purchase Value"})
+
+# Sort data and grab first 5 rows
+
 pop_items_df = grouped_items_df.sort_values('Purchase Count', ascending=False)
 pop_items_df = pop_items_df.head()
+
+# Format data
+
 pop_items_df['Average Purchase Price'] = pop_items_df['Average Purchase Price'].map("${:,.2f}".format)
 pop_items_df['Total Purchase Value'] = pop_items_df['Total Purchase Value'].map("${:,.2f}".format)
+
+# Print data
+
 pop_items_df
 ```
 
@@ -499,13 +599,24 @@ pop_items_df
 
 
 ```python
+# Aggregate data and format dataframe
+
 grouped_items_df = df.groupby(['Item ID', 'Item Name']).agg({'Price':['count', 'mean', 'sum']})
 grouped_items_df.columns = grouped_items_df.columns.droplevel()
 grouped_items_df = grouped_items_df.rename(columns={"count":"Purchase Count", "mean":"Average Purchase Price", "sum":"Total Purchase Value"})
+
+# Sort data and grab first 5 rows
+
 rev_items_df = grouped_items_df.sort_values('Total Purchase Value', ascending=False)
 rev_items_df = rev_items_df.head()
+
+# Format data
+
 rev_items_df['Average Purchase Price'] = rev_items_df['Average Purchase Price'].map("${:,.2f}".format)
 rev_items_df['Total Purchase Value'] = rev_items_df['Total Purchase Value'].map("${:,.2f}".format)
+
+# Print data
+
 rev_items_df
 ```
 
