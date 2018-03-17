@@ -3,6 +3,13 @@
 
 GWU Data Analytics Bootcamp Homework 4
 
+### Observable Trends
+
+* Males make up a significantly larger portion of the player base (or at least the player base who makes purchases) than women and also tend to spend more than women.
+
+* The majority of players are between the ages of 20-24, but the typical 20-24 year old pays less than players in other age brackets - both older and younger.
+
+* Higher-priced items tend to be more profitable even if they aren't more frequently purchased. The price difference often compensates for any differences in purchase frequency.
 
 ```python
 import pandas as pd
@@ -557,11 +564,3 @@ rev_items_df
     </tr>
   </tbody>
 </table>
-
-### Observable Trends
-
-* Males make up a significantly larger portion of the player base (or at least the player base who makes purchases) than women and also tend to spend more than women.
-
-* The majority of players are between the ages of 20-24, but the typical 20-24 year old pays less than players in other age brackets - both older and younger.
-
-* Higher-priced items tend to be more profitable even if they aren't more frequently purchased. The price difference often compensates for any differences in purchase frequency.
