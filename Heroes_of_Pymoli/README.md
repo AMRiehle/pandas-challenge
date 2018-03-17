@@ -8,7 +8,7 @@ GWU Data Analytics Bootcamp Homework 4
 import pandas as pd
 import numpy as np
 
-json = "Resources/Heroes.JSON"
+json = "../Resources/Heroes.JSON"
 df = pd.read_json(json)
 ```
 
